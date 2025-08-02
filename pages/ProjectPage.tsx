@@ -1,36 +1,26 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { PROJECTS } from '../constants';
 import { ArrowRightIcon } from '../components/icons';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const ProjectPage: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
     const project = PROJECTS.find(p => p.id === Number(id));
 
-    // A ref to target the gallery container for scroll animations
-    const galleryRef = useRef<HTMLDivElement>(null);
-
-    // Track scroll progress within the page for a subtle parallax effect
-    const { scrollYProgress } = useScroll({
-        target: galleryRef,
-        offset: ["start end", "end start"]
-    });
-    
-    // Create two different parallax effects to apply alternately
-    const y1 = useTransform(scrollYProgress, [0, 1], [0, 80]);
-    const y2 = useTransform(scrollYProgress, [0, 1], [0, -80]);
+    // State to track the currently selected image for the lightbox
+    const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
     useEffect(() => {
-        window.scrollTo(0, 0); // Scroll to top on component mount
+        window.scrollTo(0, 0);
         if (!project) {
             navigate('/works');
         }
     }, [project, navigate, id]);
 
     if (!project) {
-        return null; // or a loading/not-found component
+        return null;
     }
 
     const otherProjects = PROJECTS.filter(p => p.featured && p.id !== project.id).slice(0, 2);
@@ -50,33 +40,27 @@ const ProjectPage: React.FC = () => {
                     <p className="mt-6 text-lg text-primary-blue/80 leading-relaxed">{project.description}</p>
                 </motion.div>
 
-                {/* Main Image Collage using a responsive Masonry layout with CSS columns */}
+                {/* --- Stable Masonry Grid --- */}
                 {project.gallery.length > 0 && (
-                    <div 
-                        ref={galleryRef} 
-                        className="mt-24 w-full columns-2 md:columns-3 lg:columns-4 gap-4 md:gap-8"
-                    >
-                        {project.gallery.map((image, index) => {
-                            // Alternate the parallax effect for a more dynamic feel
-                            const y = index % 2 === 0 ? y1 : y2;
-
-                            return (
-                                <motion.div
-                                    key={index}
-                                    className="mb-4 md:mb-8 break-inside-avoid" // Prevents images from breaking across columns
-                                    style={{ y }}
-                                    initial={{ opacity: 0, scale: 0.9 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    transition={{ duration: 0.5, delay: index * 0.05 }}
-                                >
-                                    <img 
-                                        src={image} 
-                                        alt={`${project.title} gallery image ${index + 1}`} 
-                                        className="rounded-2xl shadow-xl w-full" 
-                                    />
-                                </motion.div>
-                            );
-                        })}
+                    <div className="mt-24 w-full columns-2 md:columns-3 lg:columns-4 gap-4 md:gap-6">
+                        {project.gallery.map((image, index) => (
+                            <motion.div
+                                key={index}
+                                className="mb-4 md:mb-6 break-inside-avoid cursor-pointer"
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true, amount: 0.3 }}
+                                transition={{ duration: 0.5, delay: index * 0.05 }}
+                                onClick={() => setSelectedImage(image)}
+                            >
+                                <motion.img 
+                                    src={image} 
+                                    alt={`${project.title} gallery image ${index + 1}`} 
+                                    className="rounded-2xl shadow-xl w-full transition-all duration-300 hover:shadow-2xl hover:brightness-90"
+                                    layoutId={`project-image-${image}`}
+                                />
+                            </motion.div>
+                        ))}
                     </div>
                 )}
                 
@@ -102,6 +86,29 @@ const ProjectPage: React.FC = () => {
                 </div>
 
             </div>
+
+            {/* --- Lightbox Modal --- */}
+            <AnimatePresence>
+                {selectedImage && (
+                    <motion.div
+                        initial={{ backgroundColor: 'rgba(0, 0, 0, 0)' }}
+                        animate={{ backgroundColor: 'rgba(0, 0, 0, 0.85)' }}
+                        exit={{ backgroundColor: 'rgba(0, 0, 0, 0)' }}
+                        className="fixed inset-0 z-50 flex items-center justify-center p-4 cursor-pointer"
+                        onClick={() => setSelectedImage(null)}
+                    >
+                        <motion.img
+                            src={selectedImage}
+                            alt="Enlarged project view"
+                            className="max-w-full max-h-[90vh] rounded-xl shadow-2xl"
+                            layoutId={`project-image-${selectedImage}`}
+                            transition={{ duration: 0.4, ease: 'easeInOut' }}
+                            // This prevents the click on the image from closing the modal
+                            onClick={(e) => e.stopPropagation()}
+                        />
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
     );
 };
