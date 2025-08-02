@@ -5,8 +5,8 @@ import { MenuIcon, XIcon } from './icons';
 
 const Logo: React.FC = () => (
     <NavLink to="/" className="block text-center my-logo transition-transform duration-300 hover:scale-105">
-        <div className="text-[54px] my-logo-primary leading-tight">Terry</div>
-        <div className="text-xs text-accent-gold -mt-1">Digital Agency</div>
+        <div className="text-4xl my-logo-primary leading-tight">Terry</div>
+        <div className="text-[10px] text-accent-gold -mt-1">Digital Agency</div>
     </NavLink>
 );
 
@@ -69,7 +69,7 @@ const Header: React.FC = () => {
     return (
         <>
             <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-brand-bg/80 backdrop-blur-lg shadow-md' : 'bg-transparent'}`}>
-                <nav className="container mx-auto px-6 py-4 flex justify-between items-center">
+                <nav className="container mx-auto px-6 py-2 flex justify-between items-center">
                     <Logo />
                     <div className="hidden md:flex items-center space-x-10">
                         <NavItem to="/">Home</NavItem>
