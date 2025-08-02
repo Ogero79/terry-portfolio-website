@@ -158,35 +158,49 @@ const buttonContentVariants = {
     const featuredProjects = PROJECTS.filter(p => p.featured);
 
     return (
-        <div className="space-y-24 md:space-y-48 overflow-x-hidden">
+        <div className="overflow-x-hidden pt-24 md:pt-16 pb-24">
             {/* Section 1: Hero */}
-            <section className="relative min-h-screen flex items-center justify-center text-center">
-                <div className="container mx-auto px-6">
-                    <motion.h1
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, ease: 'easeOut' }}
-                        className="text-6xl md:text-8xl font-extrabold font-display text-primary-blue max-w-5xl mx-auto leading-tight">
-                        Bringing Creativity to Life, One Design at a Time
-                    </motion.h1>
-                    <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
-                        className="mt-6 text-lg text-primary-blue/80 max-w-2xl mx-auto">
-                        Hi, I'm Terry Masese. I craft innovative and visually stunning designs that connect brands with their audiences. Let's create something extraordinary together.
-                    </motion.p>
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.4, ease: 'easeOut' }}
-                    >
-                        <a href="https://wa.me/254700902124" target="_blank" rel="noopener noreferrer" className="mt-10 inline-flex items-center gap-3 bg-accent-gold text-primary-blue font-bold py-4 px-10 rounded-full shadow-lg shadow-accent-gold/20 hover:bg-yellow-400 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl hover:shadow-accent-gold/40">
-                            Let's Collaborate <ArrowRightIcon className="w-5 h-5" />
-                        </a>
-                    </motion.div>
-                </div>
-            </section>
+<section className="relative min-h-screen flex items-center justify-center text-center">
+    <div className="container mx-auto px-6">
+        <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+            className="
+                text-5xl
+                sm:text-6xl
+                lg:text-7xl
+                xl:text-8xl
+                font-extrabold font-display text-primary-blue max-w-5xl mx-auto leading-tight
+            "
+        >
+            Bringing Creativity to Life, One Design at a Time
+        </motion.h1>
+
+        <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
+            className="
+                mt-6 text-base
+                md:text-lg
+                text-primary-blue/80 max-w-2xl mx-auto
+            "
+        >
+            Hi, I'm Terry Masese. I craft innovative and visually stunning designs that connect brands with their audiences. Let's create something extraordinary together.
+        </motion.p>
+        
+        <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4, ease: 'easeOut' }}
+        >
+            <a href="https://wa.me/254700902124" target="_blank" rel="noopener noreferrer" className="mt-10 inline-flex items-center gap-3 bg-accent-gold text-primary-blue font-bold py-3 px-8 md:py-4 md:px-10 rounded-full shadow-lg shadow-accent-gold/20 hover:bg-yellow-400 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl hover:shadow-accent-gold/40">
+                Let's Collaborate <ArrowRightIcon className="w-5 h-5" />
+            </a>
+        </motion.div>
+    </div>
+</section>
 
             {/* Section 2: Featured Projects */}
             <section>
