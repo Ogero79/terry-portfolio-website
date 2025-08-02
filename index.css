@@ -1,0 +1,15 @@
+@font-face {
+  font-family: 'Yaro';
+  src: url('YaroRg.ttf') format('truetype'); /* Use 'truetype' or omit format */
+  font-weight: normal;
+  font-style: normal;
+}
+
+.my-logo {
+  font-family: 'Yaro', sans-serif;
+  font-weight: 700; /* Adjust as needed */
+}
+
+.my-logo-primary {
+  color: #002a80; /* Replace with your primary color */
+}
