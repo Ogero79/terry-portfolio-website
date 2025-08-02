@@ -3,8 +3,8 @@ import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { FacebookIcon, InstagramIcon, WhatsAppIcon, GithubIcon } from './icons';
 
 const FooterLogo: React.FC = () => (
-    <NavLink to="/" style={{ fontFamily: '"Yaro Round", cursive' }} className="block text-center font-yaro transition-transform duration-300 hover:scale-105">
-        <div className="text-[54px] text-primary-blue leading-tight">Terry</div>
+    <NavLink to="/" className="block text-center my-logo transition-transform duration-300 hover:scale-105">
+        <div className="text-[54px] my-logo-primary leading-tight">Terry</div>
         <div className="text-xs text-accent-gold -mt-1">Digital Agency</div>
     </NavLink>
 );

@@ -267,7 +267,7 @@ const buttonContentVariants = {
                 <div className="relative aspect-square"> {/* <-- This creates the square shape */}
                     <div className="absolute -top-4 -left-4 w-full h-full bg-accent-gold/20 rounded-3xl transform -rotate-3"></div>
                     <img 
-                        src="../images/myphoto.jpeg" 
+                        src="/images/myphoto.jpeg" 
                         alt="Terry Masese" 
                         className="relative w-full h-full object-cover rounded-3xl shadow-2xl" 
                     /> {/* <-- These classes make the image fill the square */}
